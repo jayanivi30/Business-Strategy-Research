@@ -1,0 +1,280 @@
++*In[15]:*+
+[source, ipython3]
+----
+# Step 1: Import Libraries and Load Data
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the data
+file_path = r"C:\Users\INDIRA\Downloads\Numerical_Data_Responses.xlsx"  # Update with your file path
+data = pd.read_excel(file_path)
+
+hypothesis_3_data = data.iloc[:, 23:33]
+
+hypothesis_3_summary = hypothesis_3_data.describe()
+print("Descriptive Statistics for Hypothesis 3:")
+print(hypothesis_3_summary)
+
+hypothesis_3_data.hist(bins=10, figsize=(12, 8), grid=False)
+plt.suptitle("Distribution of Responses for Digital Adaptations Questions", fontsize=14)
+plt.show()
+
+correlation_matrix = hypothesis_3_data.corr()
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
+plt.title("Correlation Matrix for Digital Adaptations Preferences")
+plt.show()
+
+if 'Age' in data.columns:
+    grouped_data = data.groupby('Age')[hypothesis_3_data.columns].mean()
+    print("Average Digital Adaptation Preferences by Age Group:")
+    print(grouped_data)
+    
+    # Optional: Plot the mean responses per age group for each question in Hypothesis 3
+    grouped_data.plot(kind='bar', figsize=(14, 8))
+    plt.title("Average Digital Adaptation Preferences by Age Group")
+    plt.xlabel("Age Group")
+    plt.ylabel("Average Response")
+    plt.legend(title="Questions")
+    plt.show()
+else:
+    print("No 'Age' column found for segmentation analysis.")
+# Export descriptive statistics to an Excel file
+hypothesis_3_summary.to_excel("Hypothesis_3_Descriptive_Statistics.xlsx", index=True)
+# Save the correlation matrix to an Excel file
+correlation_matrix.to_excel("Hypothesis_3_Correlation_Matrix.xlsx", index=True)
+if 'grouped_data' in locals():  # Check if the grouped data exists
+    grouped_data.to_excel("Hypothesis_3_Segmentation_Analysis.xlsx", index=True)
+else:
+    print("Segmentation analysis data not found.")
+
+----
+
+
++*Out[15]:*+
+----
+Descriptive Statistics for Hypothesis 3:
+       1. How often do you use digital services (e.g., website, app, online chat)?    \
+count                                         117.000000                               
+mean                                            0.914530                               
+std                                             1.063279                               
+min                                             0.000000                               
+25%                                             0.000000                               
+50%                                             1.000000                               
+75%                                             1.000000                               
+max                                             3.000000                               
+
+       2. How comfortable are you with using digital services for your purchases or interactions?    \
+count                                         117.000000                                              
+mean                                            1.264957                                              
+std                                             1.348007                                              
+min                                             0.000000                                              
+25%                                             0.000000                                              
+50%                                             1.000000                                              
+75%                                             3.000000                                              
+max                                             3.000000                                              
+
+       3. Have you relied more on digital services (e.g., online shopping, digital payments, virtual support) during economic crises?    \
+count                                         117.000000                                                                                  
+mean                                            1.435897                                                                                  
+std                                             0.781076                                                                                  
+min                                             0.000000                                                                                  
+25%                                             1.000000                                                                                  
+50%                                             2.000000                                                                                  
+75%                                             2.000000                                                                                  
+max                                             2.000000                                                                                  
+
+       4. Did the availability of digital services influence your decision to continue purchasing from a particular brand during the last economic crisis?     \
+count                                         117.000000                                                                                                        
+mean                                            1.333333                                                                                                        
+std                                             0.787839                                                                                                        
+min                                             0.000000                                                                                                        
+25%                                             1.000000                                                                                                        
+50%                                             2.000000                                                                                                        
+75%                                             2.000000                                                                                                        
+max                                             2.000000                                                                                                        
+
+       5. How convenient do you find using digital services (e.g., mobile app, website, digital payments) compared to in-person options?   \
+count                                         117.000000                                                                                    
+mean                                            3.555556                                                                                    
+std                                             1.936244                                                                                    
+min                                             0.000000                                                                                    
+25%                                             2.000000                                                                                    
+50%                                             3.000000                                                                                    
+75%                                             5.000000                                                                                    
+max                                             6.000000                                                                                    
+
+       6. How important are digital options according to you during an economic crisis?  \
+count                                         117.000000                                  
+mean                                            2.350427                                  
+std                                             1.487397                                  
+min                                             0.000000                                  
+25%                                             1.000000                                  
+50%                                             2.000000                                  
+75%                                             4.000000                                  
+max                                             5.000000                                  
+
+       7. Does the availability of digital services make you more likely to stay with a particular brand during economic crises?   \
+count                                         117.000000                                                                            
+mean                                            1.504274                                                                            
+std                                             0.690127                                                                            
+min                                             0.000000                                                                            
+25%                                             1.000000                                                                            
+50%                                             2.000000                                                                            
+75%                                             2.000000                                                                            
+max                                             2.000000                                                                            
+
+       8. Which digital features are most important to you during economic crises?   \
+count                                         117.000000                              
+mean                                           10.230769                              
+std                                             6.357706                              
+min                                             0.000000                              
+25%                                             5.000000                              
+50%                                             9.000000                              
+75%                                            16.000000                              
+max                                            21.000000                              
+
+       9. How likely are you to switch to another provider if your current provider does not offer adequate digital services during an economic downturn?   \
+count                                         117.000000                                                                                                     
+mean                                            1.401709                                                                                                     
+std                                             1.203872                                                                                                     
+min                                             0.000000                                                                                                     
+25%                                             0.000000                                                                                                     
+50%                                             1.000000                                                                                                     
+75%                                             3.000000                                                                                                     
+max                                             3.000000                                                                                                     
+
+       10. How concerned are you about the security of your personal and financial information when using digital services?    
+count                                         117.000000                                                                       
+mean                                            2.435897                                                                       
+std                                             1.688626                                                                       
+min                                             0.000000                                                                       
+25%                                             1.000000                                                                       
+50%                                             3.000000                                                                       
+75%                                             4.000000                                                                       
+max                                             4.000000                                                                       
+
+![png](output_0_1.png)
+
+![png](output_0_2.png)
+
+No 'Age' column found for segmentation analysis.
+Segmentation analysis data not found.
+----
+
+
++*In[17]:*+
+[source, ipython3]
+----
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Example data (types of digital adaptations)
+data = {'Digital Adaptation': ['Yes', 'No', 'Maybe'], 'Preference Count': [69, 28, 21]}
+df = pd.DataFrame(data)
+
+sns.barplot(x='Digital Adaptation', y='Preference Count', data=df)
+plt.title('Reliability on digital services during economic crisis')
+plt.show()
+----
+
+
++*Out[17]:*+
+----
+![png](output_1_0.png)
+----
+
+
++*In[3]:*+
+[source, ipython3]
+----
+import matplotlib.pyplot as plt
+
+# Example data (customer preferences)
+labels = ['Strongly Disagree', 'Disagree','Neutral','Agree','Strongly agree']
+sizes1 = [20,28,23,24,23]  # These are the percentages or counts
+plt.pie(sizes1, labels=labels, autopct='%1.1f%%', startangle=140)
+plt.title("A company’s commitment to safe and fair working conditions is especially important during a crisis.")
+plt.show()
+----
+
+
++*Out[3]:*+
+----
+![png](output_2_0.png)
+----
+
+
++*In[23]:*+
+[source, ipython3]
+----
+import matplotlib.pyplot as plt
+
+# Example data
+data = [75, 85, 90, 80, 78, 88, 85, 92, 95, 78]
+
+plt.hist(data, bins=5, edgecolor='black')
+plt.title('Distribution of Customer Loyalty')
+plt.xlabel('Loyalty Scores')
+plt.ylabel('Frequency')
+plt.show()
+
+----
+
+
++*Out[23]:*+
+----
+![png](output_3_0.png)
+----
+
+
++*In[27]:*+
+[source, ipython3]
+----
+import matplotlib.pyplot as plt
+
+# Example data (customer preferences)
+labels = ['Strongly Disagree', 'Disagree','Neutral','Agree','Strongly agree']
+sizes = [20,28,23,24,23]  # These are the percentages or counts
+plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=140)
+plt.title("A company’s commitment to safe and fair working conditions is important during a crisis.")
+plt.show()
+----
+
+
++*Out[27]:*+
+----
+![png](output_4_0.png)
+----
+
+
++*In[31]:*+
+[source, ipython3]
+----
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Example data (types of digital adaptations)
+data = {'Support': ['Do support', 'Do not support', 'Neutral'], 'Count': [50, 53, 19]}
+df = pd.DataFrame(data)
+
+sns.barplot(x='Support', y='Count', data=df)
+plt.title('Support for a brand that reduces employee wages during a crisis')
+plt.show()
+----
+
+
++*Out[31]:*+
+----
+![png](output_5_0.png)
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
